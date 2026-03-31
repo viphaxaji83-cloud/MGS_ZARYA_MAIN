@@ -117,6 +117,8 @@
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
   }).addTo(map);
 
+  map.attributionControl.setPrefix(false);
+
   function getMarkerElement(marker) {
     var markerNode = marker && marker.getElement();
     return markerNode ? markerNode.querySelector('.demo__map-marker') : null;
