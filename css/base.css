@@ -1,0 +1,170 @@
+/* ============================================
+   ZARYA Base Styles — Reset, Typography, Global
+   ============================================ */
+
+/* Reset */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  background-image:
+    linear-gradient(var(--color-muted) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-muted) 1px, transparent 1px);
+  background-size: 60px 60px;
+  background-attachment: fixed;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+ul, ol {
+  list-style: none;
+}
+
+/* Typography */
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  line-height: var(--leading-tight);
+  color: var(--color-text);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+h1 {
+  font-size: var(--text-6xl);
+  margin-bottom: var(--space-md);
+}
+
+h2 {
+  font-size: var(--text-4xl);
+  margin-bottom: var(--space-sm);
+}
+
+h3 {
+  font-size: var(--text-2xl);
+  margin-bottom: var(--space-xs);
+}
+
+h4 {
+  font-size: var(--text-xl);
+  margin-bottom: var(--space-xs);
+}
+
+p {
+  margin-bottom: var(--space-sm);
+  max-width: 65ch;
+}
+
+/* Utility */
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+}
+
+.section {
+  padding: var(--space-section) 0;
+}
+
+.section--dark {
+  background-color: var(--color-dark);
+  background-image:
+    linear-gradient(rgba(245, 243, 239, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(245, 243, 239, 0.06) 1px, transparent 1px);
+  background-size: 60px 60px;
+  color: var(--color-bg);
+}
+
+.section--dark h2,
+.section--dark h3,
+.section--dark h4 {
+  color: var(--color-bg);
+}
+
+.section--dark .section-label {
+  color: var(--color-secondary);
+}
+
+.section--dark .section-subtitle {
+  color: var(--color-bg);
+  opacity: 0.5;
+}
+
+.section--muted {
+  background-color: var(--color-muted);
+}
+
+.accent-text {
+  color: var(--color-accent);
+}
+
+.section-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--color-accent);
+  margin-bottom: var(--space-sm);
+  display: block;
+}
+
+.section-subtitle {
+  font-size: var(--text-lg);
+  color: var(--color-text);
+  opacity: 0.7;
+  max-width: 50ch;
+  margin-bottom: var(--space-lg);
+}
+
+/* Selection */
+::selection {
+  background-color: var(--color-accent);
+  color: var(--color-bg);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-muted);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-secondary);
+  border-radius: var(--radius);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent);
+}

@@ -1,0 +1,288 @@
+/* ============================================
+   ZARYA Responsive — Tablet & Mobile
+   ============================================ */
+
+/* Tablet — 1024px */
+@media (max-width: 1024px) {
+  :root {
+    --space-section: 5rem;
+  }
+
+  h1 { font-size: var(--text-5xl); }
+  h2 { font-size: var(--text-3xl); }
+
+  /* Header */
+  .nav__list {
+    gap: 1.25rem;
+  }
+
+  /* Hero */
+  .hero__inner {
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+
+  .hero__visual {
+    height: 360px;
+  }
+
+  /* Problem */
+  .problem__grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-sm);
+  }
+
+  /* Solution */
+  .solution__grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-sm);
+  }
+
+  /* Features */
+  .features__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Demo */
+  .demo__body {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  .demo__sidebar {
+    flex-direction: row;
+    overflow-x: auto;
+    border-right: none;
+    border-bottom: var(--border);
+  }
+
+  .demo__map {
+    min-height: 280px;
+  }
+
+  .demo__panel {
+    border-left: none;
+    border-top: var(--border);
+    flex-direction: row;
+    overflow-x: auto;
+    gap: var(--space-sm);
+  }
+
+  .demo__panel-card {
+    min-width: 220px;
+    flex-shrink: 0;
+  }
+
+  /* Impact */
+  .impact__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Footer */
+  .footer__grid {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-md);
+  }
+}
+
+/* Mobile — 768px */
+@media (max-width: 768px) {
+  :root {
+    --space-section: 4rem;
+    --container-padding: 1.25rem;
+  }
+
+  h1 { font-size: var(--text-4xl); }
+  h2 { font-size: var(--text-2xl); }
+  h3 { font-size: var(--text-xl); }
+
+  /* Header */
+  .nav__toggle {
+    display: flex;
+  }
+
+  .nav__list {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 280px;
+    height: 100vh;
+    background-color: var(--color-bg);
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 5rem var(--space-md) var(--space-md);
+    border-left: var(--border);
+    transition: right var(--transition);
+    box-shadow: -4px 0 20px rgba(0, 0, 0, 0.1);
+    gap: 1rem;
+  }
+
+  .nav__list.active {
+    right: 0;
+  }
+
+  .nav__link {
+    font-size: var(--text-base);
+  }
+
+  .nav__cta {
+    margin-top: var(--space-sm);
+  }
+
+  /* Hero */
+  .hero {
+    min-height: auto;
+    padding-top: 7rem;
+    padding-bottom: var(--space-lg);
+  }
+
+  .hero__visual {
+    height: 280px;
+  }
+
+  .hero__actions {
+    flex-direction: column;
+  }
+
+  .hero__actions .btn {
+    text-align: center;
+    justify-content: center;
+  }
+
+  /* Steps */
+  .steps__track {
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+
+  .steps__track::before {
+    top: 0;
+    bottom: 0;
+    left: 32px;
+    right: auto;
+    width: 2px;
+    height: auto;
+  }
+
+  .step {
+    text-align: left;
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    gap: var(--space-sm);
+    align-items: start;
+    padding: 0;
+  }
+
+  .step__number {
+    margin: 0;
+  }
+
+  .step__arrow {
+    display: none;
+  }
+
+  /* Features */
+  .features__grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Impact */
+  .impact__grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Roadmap */
+  .roadmap__timeline {
+    grid-template-columns: 1fr;
+    padding-left: 2rem;
+  }
+
+  .roadmap__timeline::before {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: auto;
+    width: 2px;
+    height: auto;
+  }
+
+  .roadmap__phase {
+    padding-top: 0;
+    padding-left: var(--space-md);
+    padding-bottom: var(--space-lg);
+  }
+
+  .roadmap__marker {
+    top: 0;
+    left: -2rem;
+    transform: translateX(-1px);
+  }
+
+  .roadmap__phase-title {
+    font-size: var(--text-xl);
+  }
+
+  /* CTA */
+  .cta__actions {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* Footer */
+  .footer__grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+
+  .footer__bottom {
+    flex-direction: column;
+    gap: var(--space-sm);
+    text-align: center;
+  }
+}
+
+/* Small mobile — 480px */
+@media (max-width: 480px) {
+  h1 { font-size: var(--text-3xl); }
+  h2 { font-size: var(--text-xl); }
+
+  .hero__mock-content {
+    grid-template-columns: 1fr;
+  }
+
+  .solution__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Animations — fade in on scroll */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .fade-in {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}

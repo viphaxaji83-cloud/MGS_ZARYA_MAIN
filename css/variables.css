@@ -1,0 +1,59 @@
+/* ============================================
+   ZARYA Design Tokens
+   ============================================ */
+
+:root {
+  /* Colors */
+  --color-accent: #882426;
+  --color-accent-hover: #6e1d1f;
+  --color-secondary: #cdbea7;
+  --color-text: #323030;
+  --color-bg: #f5f3ef;
+  --color-dark: #111111;
+  --color-muted: #e8e6e1;
+  --color-white: #ffffff;
+
+  /* Typography */
+  --font-heading: 'Gros Ventre', 'Arial Black', 'Impact', sans-serif;
+  --font-body: 'Steppe', 'Inter', 'Manrope', Arial, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 2rem;
+  --text-4xl: 2.5rem;
+  --text-5xl: 3.5rem;
+  --text-6xl: 4.5rem;
+
+  --leading-tight: 1.1;
+  --leading-normal: 1.6;
+
+  /* Spacing */
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 2rem;
+  --space-lg: 4rem;
+  --space-xl: 6rem;
+  --space-section: 8rem;
+
+  /* Layout */
+  --container-max: 1200px;
+  --container-padding: 2rem;
+
+  /* UI */
+  --radius-sm: 4px;
+  --radius: 6px;
+  --radius-lg: 8px;
+  --border: 1px solid var(--color-muted);
+  --border-accent: 1px solid var(--color-accent);
+  --transition: 300ms ease-out;
+  --transition-fast: 150ms ease-out;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(50, 48, 48, 0.06);
+  --shadow-md: 0 4px 12px rgba(50, 48, 48, 0.08);
+}

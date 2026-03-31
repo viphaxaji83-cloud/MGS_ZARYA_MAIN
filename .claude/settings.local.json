@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pandoc \"C:/Users/Admin/Downloads/ZARYA_Codex_prompt.docx\" -o /tmp/zarya_codex.md)",
+      "Bash(py --version)",
+      "Bash(py -c \"print\\(''hello''\\)\")",
+      "Bash(py -c \":*)"
+    ]
+  }
+}

@@ -1,0 +1,217 @@
+/* ============================================
+   ZARYA Components — Buttons, Cards, Labels
+   ============================================ */
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.875rem 2rem;
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  border-radius: var(--radius);
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: all var(--transition);
+  text-decoration: none;
+}
+
+.btn--primary {
+  background-color: var(--color-accent);
+  color: var(--color-bg);
+  border-color: var(--color-accent);
+}
+
+.btn--primary:hover {
+  background-color: var(--color-accent-hover);
+  border-color: var(--color-accent-hover);
+}
+
+.btn--outline {
+  background-color: transparent;
+  color: var(--color-text);
+  border-color: var(--color-text);
+}
+
+.btn--outline:hover {
+  background-color: var(--color-text);
+  color: var(--color-bg);
+}
+
+.btn--outline-light {
+  background-color: transparent;
+  color: var(--color-bg);
+  border-color: var(--color-bg);
+}
+
+.btn--outline-light:hover {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+.btn--secondary {
+  background-color: var(--color-secondary);
+  color: var(--color-text);
+  border-color: var(--color-secondary);
+}
+
+.btn--secondary:hover {
+  background-color: var(--color-muted);
+  border-color: var(--color-muted);
+}
+
+/* Cards */
+.card {
+  background-color: var(--color-white);
+  border: var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-md);
+  transition: all var(--transition);
+}
+
+.card:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-secondary);
+}
+
+/* Cards inside dark sections */
+.section--dark .card {
+  background-color: rgba(245, 243, 239, 0.05);
+  border-color: rgba(245, 243, 239, 0.12);
+}
+
+.section--dark .card:hover {
+  border-color: var(--color-accent);
+  background-color: rgba(136, 36, 38, 0.1);
+  box-shadow: none;
+}
+
+.section--dark .card__title {
+  color: var(--color-bg);
+}
+
+.section--dark .card__text {
+  color: var(--color-bg);
+  opacity: 0.6;
+}
+
+.section--dark .card__icon {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.card__icon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: var(--border-accent);
+  border-radius: var(--radius);
+  margin-bottom: var(--space-sm);
+  color: var(--color-accent);
+  font-size: var(--text-xl);
+}
+
+.card__title {
+  font-family: var(--font-heading);
+  font-size: var(--text-lg);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--space-xs);
+}
+
+.card__text {
+  font-size: var(--text-sm);
+  color: var(--color-text);
+  opacity: 0.7;
+  line-height: var(--leading-normal);
+}
+
+/* Card variant — numbered */
+.card--numbered {
+  position: relative;
+  padding-top: 3.5rem;
+}
+
+.card--numbered::before {
+  content: attr(data-number);
+  position: absolute;
+  top: var(--space-md);
+  left: var(--space-md);
+  font-family: var(--font-heading);
+  font-size: var(--text-xs);
+  color: var(--color-accent);
+  letter-spacing: 0.1em;
+}
+
+/* System Labels */
+.sys-label {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--color-secondary);
+  opacity: 0.6;
+}
+
+.sys-label--accent {
+  color: var(--color-accent);
+  opacity: 0.4;
+}
+
+/* Divider */
+.divider {
+  width: 100%;
+  height: 1px;
+  background-color: var(--color-muted);
+  border: none;
+}
+
+.divider--accent {
+  background-color: var(--color-accent);
+  opacity: 0.3;
+  height: 2px;
+  width: 60px;
+}
+
+/* Grid backgrounds */
+.grid-bg {
+  position: relative;
+}
+
+.grid-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--color-muted) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-muted) 1px, transparent 1px);
+  background-size: 60px 60px;
+  opacity: 0.4;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.grid-bg > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Tags */
+.tag {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius-sm);
+  color: var(--color-accent);
+}

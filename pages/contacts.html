@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Контакты — ЗАРЯ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/layout.css">
+  <link rel="stylesheet" href="../css/sections.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+  <style>
+    .contact-form {
+      max-width: 560px;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+      margin-top: var(--space-lg);
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.375rem;
+    }
+
+    .form-label {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--color-text);
+      opacity: 0.7;
+    }
+
+    .form-input,
+    .form-textarea {
+      font-family: var(--font-body);
+      font-size: var(--text-base);
+      padding: 0.75rem 1rem;
+      border: var(--border);
+      border-radius: var(--radius);
+      background-color: var(--color-white);
+      color: var(--color-text);
+      transition: border-color var(--transition-fast);
+    }
+
+    .form-input:focus,
+    .form-textarea:focus {
+      outline: none;
+      border-color: var(--color-accent);
+    }
+
+    .form-textarea {
+      resize: vertical;
+      min-height: 140px;
+    }
+
+    .contact-info {
+      margin-top: var(--space-xl);
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-md);
+    }
+
+    .contact-info__item {
+      padding: var(--space-md);
+      border: var(--border);
+      border-radius: var(--radius-lg);
+    }
+
+    .contact-info__label {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--color-accent);
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    .contact-info__value {
+      font-size: var(--text-base);
+      color: var(--color-text);
+    }
+
+    @media (max-width: 768px) {
+      .contact-info {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header header--scrolled" id="header">
+    <div class="container header__inner">
+      <a href="../index.html" class="header__logo">
+        <div class="header__logo-mark">З</div>
+        <span>ЗАРЯ</span>
+      </a>
+      <nav class="nav">
+        <ul class="nav__list" id="navList">
+          <li><a href="about.html" class="nav__link">О проекте</a></li>
+          <li><a href="technology.html" class="nav__link">Технология</a></li>
+          <li><a href="features.html" class="nav__link">Возможности</a></li>
+          <li><a href="demo.html" class="nav__link">Демо</a></li>
+          <li><a href="roadmap.html" class="nav__link">Roadmap</a></li>
+          <li><a href="contacts.html" class="nav__link">Контакты</a></li>
+        </ul>
+        <a href="contacts.html" class="btn btn--primary nav__cta">Связаться</a>
+        <button class="nav__toggle" id="navToggle" aria-label="Меню">
+          <span></span><span></span><span></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="section" style="padding-top: 8rem;">
+      <div class="container">
+        <span class="section-label">// Контакты</span>
+        <h1>Связаться с нами</h1>
+        <p class="section-subtitle">Заполните форму, и мы свяжемся с вами для обсуждения деталей и демонстрации платформы.</p>
+
+        <form class="contact-form" onsubmit="return false;">
+          <div class="form-group">
+            <label class="form-label" for="name">Имя</label>
+            <input class="form-input" type="text" id="name" placeholder="Ваше имя">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="email">Email</label>
+            <input class="form-input" type="email" id="email" placeholder="email@example.com">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="org">Организация</label>
+            <input class="form-input" type="text" id="org" placeholder="Название организации">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="message">Сообщение</label>
+            <textarea class="form-textarea" id="message" placeholder="Опишите ваш запрос..."></textarea>
+          </div>
+          <button type="submit" class="btn btn--primary" style="align-self: flex-start; margin-top: var(--space-xs);">Отправить</button>
+        </form>
+
+        <div class="contact-info">
+          <div class="contact-info__item">
+            <span class="contact-info__label">Email</span>
+            <span class="contact-info__value">[email@placeholder]</span>
+          </div>
+          <div class="contact-info__item">
+            <span class="contact-info__label">Телефон</span>
+            <span class="contact-info__value">[+7 (XXX) XXX-XX-XX]</span>
+          </div>
+          <div class="contact-info__item">
+            <span class="contact-info__label">Адрес</span>
+            <span class="contact-info__value">[Город, улица, дом]</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <span class="footer__logo">ЗАРЯ</span>
+          <p class="footer__desc">AI-платформа мониторинга городской среды и контейнерных площадок.</p>
+          <span class="sys-label">Monitoring Platform v1.0</span>
+        </div>
+        <div>
+          <h4 class="footer__heading">Проект</h4>
+          <ul class="footer__list">
+            <li><a href="about.html" class="footer__link">О проекте</a></li>
+            <li><a href="technology.html" class="footer__link">Технология</a></li>
+            <li><a href="features.html" class="footer__link">Возможности</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer__heading">Платформа</h4>
+          <ul class="footer__list">
+            <li><a href="demo.html" class="footer__link">Демонстрация</a></li>
+            <li><a href="roadmap.html" class="footer__link">Roadmap</a></li>
+            <li><a href="contacts.html" class="footer__link">Контакты</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer__heading">Контакты</h4>
+          <ul class="footer__list">
+            <li><a href="mailto:info@zarya.placeholder" class="footer__link">[email@placeholder]</a></li>
+            <li><span class="footer__link">[+7 (XXX) XXX-XX-XX]</span></li>
+            <li><a href="contacts.html" class="footer__link">Форма связи</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <span class="footer__copy">&copy; 2025 ЗАРЯ. Все права защищены.</span>
+        <span class="footer__sys">ZARYA // Monitoring Platform</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/navigation.js"></script>
+  <script src="../js/animations.js"></script>
+  <script src="../js/main.js"></script>
+</body>
+</html>
