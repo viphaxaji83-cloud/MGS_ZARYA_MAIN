@@ -5,12 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="ЗАРЯ — AI-платформа мониторинга городской среды и контейнерных площадок">
   <title>ЗАРЯ — Система мониторинга городской среды</title>
+  <link rel="icon" type="image/png" href="assets/logo/Icon_logo_dark.png">
 
   <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-
   <!-- Styles -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
   <link rel="stylesheet" href="css/variables.css">
@@ -26,8 +23,11 @@
   <header class="header" id="header">
     <div class="container header__inner">
       <a href="/" class="header__logo">
-        <div class="header__logo-mark">З</div>
-        <span>ЗАРЯ</span>
+        <img
+          src="assets/logo/Cut_logo_dark.png"
+          alt="ЗАРЯ"
+          class="header__logo-image"
+        >
       </a>
 
       <nav class="nav">
@@ -521,7 +521,6 @@
         </p>
         <div class="cta__actions fade-in">
           <a href="pages/contacts.html" class="btn btn--primary">Связаться</a>
-          <a href="#hero" class="btn btn--outline-light">Наверх</a>
         </div>
       </div>
     </section>
@@ -533,7 +532,13 @@
     <div class="container">
       <div class="footer__grid">
         <div class="footer__brand">
-          <span class="footer__logo">ЗАРЯ</span>
+          <span class="footer__logo">
+            <img
+              src="assets/logo/Cut_logo_light.png"
+              alt="ЗАРЯ"
+              class="footer__logo-image"
+            >
+          </span>
           <p class="footer__desc">AI-платформа мониторинга городской среды и контейнерных площадок.</p>
           <span class="sys-label">Monitoring Platform v1.0</span>
         </div>

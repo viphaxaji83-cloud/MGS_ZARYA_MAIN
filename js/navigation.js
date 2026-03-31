@@ -6,24 +6,45 @@
   const header = document.getElementById('header');
   const navToggle = document.getElementById('navToggle');
   const navList = document.getElementById('navList');
+  const hasHeroSection = Boolean(document.querySelector('.hero'));
+  const forceScrolledHeader = Boolean(
+    header && header.classList.contains('header--scrolled') && !hasHeroSection
+  );
+  const scrollTopButton = document.createElement('button');
+
+  scrollTopButton.type = 'button';
+  scrollTopButton.className = 'scroll-top';
+  scrollTopButton.setAttribute('aria-label', 'Вернуться наверх');
+  scrollTopButton.innerHTML = '<span class="scroll-top__icon" aria-hidden="true">↑</span>';
+
+  document.body.appendChild(scrollTopButton);
 
   // Header scroll effect
-  let lastScroll = 0;
-
   function onScroll() {
     const scrollY = window.scrollY;
 
-    if (scrollY > 60) {
+    if (header && (forceScrolledHeader || scrollY > 60)) {
       header.classList.add('header--scrolled');
-    } else {
+    } else if (header) {
       header.classList.remove('header--scrolled');
     }
 
-    lastScroll = scrollY;
+    if (scrollY > 360) {
+      scrollTopButton.classList.add('scroll-top--visible');
+    } else {
+      scrollTopButton.classList.remove('scroll-top--visible');
+    }
   }
 
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
+
+  scrollTopButton.addEventListener('click', function () {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  });
 
   // Mobile menu toggle
   if (navToggle && navList) {
@@ -65,7 +86,7 @@
       var target = document.querySelector(targetId);
       if (target) {
         e.preventDefault();
-        var headerHeight = header.offsetHeight;
+        var headerHeight = header ? header.offsetHeight : 0;
         var targetPosition = target.getBoundingClientRect().top + window.scrollY - headerHeight - 20;
 
         window.scrollTo({

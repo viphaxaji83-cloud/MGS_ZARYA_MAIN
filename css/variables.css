@@ -2,6 +2,78 @@
    ZARYA Design Tokens
    ============================================ */
 
+@font-face {
+  font-family: 'Gros Ventre';
+  src: url('../assets/fonts/Gros Ventre Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gros Ventre';
+  src: url('../assets/fonts/Gros Ventre Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gros Ventre';
+  src: url('../assets/fonts/Gros Ventre Semibold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gros Ventre';
+  src: url('../assets/fonts/Gros Ventre Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Steppe';
+  src: url('../assets/fonts/Steppe-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Steppe';
+  src: url('../assets/fonts/Steppe-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Steppe';
+  src: url('../assets/fonts/Steppe-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Steppe';
+  src: url('../assets/fonts/Steppe-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Steppe';
+  src: url('../assets/fonts/Steppe-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   /* Colors */
   --color-accent: #882426;
@@ -15,8 +87,8 @@
 
   /* Typography */
   --font-heading: 'Gros Ventre', 'Arial Black', 'Impact', sans-serif;
-  --font-body: 'Steppe', 'Inter', 'Manrope', Arial, sans-serif;
-  --font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+  --font-body: 'Steppe', Arial, sans-serif;
+  --font-mono: 'Steppe', Arial, sans-serif;
 
   --text-xs: 0.75rem;
   --text-sm: 0.875rem;
