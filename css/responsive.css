@@ -243,6 +243,12 @@
   }
 
   /* CTA */
+  .cta__title {
+    width: auto;
+    max-width: 12ch;
+    white-space: normal;
+  }
+
   .cta__actions {
     flex-direction: column;
     align-items: center;

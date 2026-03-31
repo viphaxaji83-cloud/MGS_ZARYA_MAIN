@@ -796,18 +796,26 @@
   text-align: center;
 }
 
+.cta .container {
+  max-width: 1440px;
+}
+
 .cta__title {
-  font-size: clamp(var(--text-3xl), 4vw, var(--text-5xl));
-  max-width: 18ch;
+  font-size: clamp(2.35rem, 2.8vw, 3.9rem);
+  display: inline-block;
+  width: auto;
+  max-width: 100%;
+  white-space: nowrap;
+  text-align: center;
   margin: 0 auto var(--space-md);
 }
 
 .cta__text {
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
   font-weight: 400;
   font-size: var(--text-lg);
-  line-height: 1.3;
-  letter-spacing: 0.01em;
+  line-height: 1.45;
+  letter-spacing: 0;
   opacity: 0.7;
   max-width: 45ch;
   margin: 0 auto var(--space-lg);
@@ -818,4 +826,8 @@
   gap: var(--space-sm);
   justify-content: center;
   flex-wrap: wrap;
+}
+
+.cta__actions .btn {
+  min-width: 11rem;
 }
