@@ -163,11 +163,29 @@
   grid-template-columns: repeat(3, 1fr);
   gap: var(--space-md);
   margin-top: var(--space-lg);
+  align-items: start;
 }
 
 .problem__card {
-  border-left: 2px solid var(--color-accent);
-  padding-left: var(--space-md);
+  display: grid;
+  grid-template-columns: 2px 1fr;
+  column-gap: var(--space-md);
+  align-items: center;
+}
+
+.problem__card::before {
+  content: '';
+  width: 2px;
+  height: 112px;
+  background-color: var(--color-accent);
+  align-self: start;
+}
+
+.problem__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  min-height: 112px;
 }
 
 .problem__card .card__title {
@@ -213,7 +231,7 @@
   left: 10%;
   right: 10%;
   height: 2px;
-  background-color: var(--color-muted);
+  background-color: var(--color-accent);
 }
 
 .step {
@@ -233,7 +251,7 @@
   margin: 0 auto var(--space-sm);
   font-family: var(--font-heading);
   font-size: var(--text-lg);
-  color: var(--color-accent);
+  color: #000;
   background-color: var(--color-bg);
   position: relative;
   z-index: 1;
@@ -253,6 +271,7 @@
 }
 
 .step__arrow {
+  display: none;
   position: absolute;
   right: -12px;
   top: 28px;
@@ -335,11 +354,25 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  width: 100%;
+  appearance: none;
+  background: transparent;
+  border: none;
+  color: var(--color-text);
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast);
+}
+
+.demo__sidebar-item:hover {
+  background-color: rgba(255, 255, 255, 0.7);
 }
 
 .demo__sidebar-item--active {
   background-color: var(--color-white);
   border: var(--border);
+  box-shadow: var(--shadow-sm);
 }
 
 .demo__sidebar-dot {
@@ -363,7 +396,7 @@
 
 .demo__map {
   position: relative;
-  background-color: var(--color-muted);
+  background: linear-gradient(180deg, #d8d6d1 0%, #e7e4df 100%);
   overflow: hidden;
 }
 
@@ -371,22 +404,142 @@
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(rgba(50, 48, 48, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(50, 48, 48, 0.05) 1px, transparent 1px);
+    linear-gradient(rgba(50, 48, 48, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(50, 48, 48, 0.045) 1px, transparent 1px);
   background-size: 40px 40px;
+}
+
+.demo__map-overlay {
+  position: absolute;
+  inset: 0;
+}
+
+.demo__map-badge {
+  position: absolute;
+  top: var(--space-sm);
+  left: var(--space-sm);
+  z-index: 2;
+  padding: 0.4rem 0.65rem;
+  border-radius: 999px;
+  background-color: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(50, 48, 48, 0.08);
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(50, 48, 48, 0.72);
+}
+
+.demo__map-graphic {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.demo__map-district {
+  fill: rgba(195, 193, 188, 0.65);
+  stroke: rgba(130, 127, 123, 0.28);
+  stroke-width: 2;
+}
+
+.demo__map-district--inner {
+  fill: rgba(230, 228, 223, 0.85);
+}
+
+.demo__map-water {
+  stroke: rgba(163, 167, 170, 0.55);
+  stroke-width: 16;
+  stroke-linecap: round;
+}
+
+.demo__map-road {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.demo__map-road--ring {
+  stroke: rgba(146, 142, 137, 0.42);
+  stroke-width: 10;
+}
+
+.demo__map-road--major {
+  stroke: rgba(161, 157, 151, 0.72);
+  stroke-width: 12;
+}
+
+.demo__map-road--minor {
+  stroke: rgba(181, 177, 171, 0.9);
+  stroke-width: 7;
+}
+
+.demo__map-area-label {
+  fill: rgba(50, 48, 48, 0.36);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.18em;
 }
 
 .demo__map-pin {
   position: absolute;
-  width: 12px;
-  height: 12px;
+  width: 16px;
+  height: 16px;
+  appearance: none;
   border-radius: 50%;
+  padding: 0;
+  transform: translate(-50%, -50%);
   border: 2px solid var(--color-white);
+  cursor: pointer;
+  box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.38);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), filter var(--transition-fast);
+  z-index: 3;
 }
 
-.demo__map-pin--ok { background-color: #4a7c59; }
-.demo__map-pin--warn { background-color: #b8860b; }
-.demo__map-pin--alert { background-color: var(--color-accent); }
+.demo__map-pin:hover,
+.demo__map-pin:focus-visible,
+.demo__map-pin.is-active {
+  transform: translate(-50%, -50%) scale(1.15);
+  box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.44);
+}
+
+.demo__map-pin:focus-visible {
+  outline: none;
+}
+
+.demo__map-pin::after {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 1px solid currentColor;
+  opacity: 0.3;
+}
+
+.demo__map-pin--ok { background-color: #4a7c59; color: #4a7c59; }
+.demo__map-pin--warn { background-color: #b8860b; color: #b8860b; }
+.demo__map-pin--alert { background-color: var(--color-accent); color: var(--color-accent); }
+
+.demo__map-tooltip {
+  position: absolute;
+  z-index: 4;
+  padding: 0.45rem 0.65rem;
+  border-radius: var(--radius-sm);
+  background-color: rgba(17, 17, 17, 0.82);
+  color: var(--color-white);
+  font-size: 0.75rem;
+  line-height: 1.4;
+  pointer-events: none;
+  opacity: 0;
+  transform: translate(-50%, -10px);
+  transition: opacity var(--transition-fast), transform var(--transition-fast);
+  white-space: nowrap;
+}
+
+.demo__map-tooltip.is-visible {
+  opacity: 1;
+  transform: translate(-50%, -16px);
+}
 
 .demo__map-label {
   position: absolute;
@@ -439,6 +592,10 @@
   font-weight: 600;
 }
 
+.demo__panel-status--ok { color: #4a7c59; }
+.demo__panel-status--warn { color: #b8860b; }
+.demo__panel-status--alert { color: var(--color-accent); }
+
 .demo__panel-bar {
   height: 6px;
   background-color: var(--color-muted);
@@ -455,6 +612,90 @@
 .demo__panel-bar-fill--green { background-color: #4a7c59; }
 .demo__panel-bar-fill--yellow { background-color: #b8860b; }
 .demo__panel-bar-fill--red { background-color: var(--color-accent); }
+
+.demo__camera-preview {
+  position: relative;
+  height: 100px;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  padding: 0.75rem;
+  background:
+    radial-gradient(circle at 75% 30%, rgba(255, 255, 255, 0.42), transparent 0 18%),
+    linear-gradient(135deg, rgba(80, 92, 101, 0.95) 0%, rgba(110, 116, 123, 0.92) 44%, rgba(58, 62, 67, 0.94) 100%);
+}
+
+.demo__camera-preview::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+  background-size: 20px 20px;
+  mix-blend-mode: screen;
+}
+
+.demo__camera-chip,
+.demo__camera-location,
+.demo__camera-preview .sys-label {
+  position: relative;
+  z-index: 1;
+}
+
+.demo__camera-chip {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  padding: 0.3rem 0.55rem;
+  border-radius: 999px;
+  background-color: rgba(17, 17, 17, 0.48);
+  color: var(--color-white);
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.demo__camera-location {
+  color: rgba(255, 255, 255, 0.84);
+  font-size: 0.75rem;
+}
+
+.demo__camera-crosshair {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  width: 34px;
+  height: 34px;
+  transform: translate(-50%, -50%);
+  border: 1px solid rgba(255, 255, 255, 0.62);
+  border-radius: 50%;
+}
+
+.demo__camera-crosshair::before,
+.demo__camera-crosshair::after {
+  content: '';
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.62);
+}
+
+.demo__camera-crosshair::before {
+  top: 50%;
+  left: -8px;
+  right: -8px;
+  height: 1px;
+  transform: translateY(-50%);
+}
+
+.demo__camera-crosshair::after {
+  left: 50%;
+  top: -8px;
+  bottom: -8px;
+  width: 1px;
+  transform: translateX(-50%);
+}
 
 /* 07. Impact */
 .impact__grid {
@@ -479,8 +720,13 @@
 }
 
 .impact__icon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: var(--text-3xl);
-  margin-bottom: var(--space-sm);
+  margin: 0 auto var(--space-sm);
   color: var(--color-accent);
 }
 
