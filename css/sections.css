@@ -400,18 +400,16 @@
   overflow: hidden;
 }
 
-.demo__map-grid {
+.demo__map-canvas {
   position: absolute;
   inset: 0;
-  background-image:
-    linear-gradient(rgba(50, 48, 48, 0.045) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(50, 48, 48, 0.045) 1px, transparent 1px);
-  background-size: 40px 40px;
 }
 
 .demo__map-overlay {
   position: absolute;
   inset: 0;
+  pointer-events: none;
+  z-index: 500;
 }
 
 .demo__map-badge {
@@ -430,84 +428,52 @@
   color: rgba(50, 48, 48, 0.72);
 }
 
-.demo__map-graphic {
-  position: absolute;
-  inset: 0;
+.demo__map .leaflet-container {
   width: 100%;
   height: 100%;
+  background: transparent;
+  font-family: var(--font-body);
 }
 
-.demo__map-district {
-  fill: rgba(195, 193, 188, 0.65);
-  stroke: rgba(130, 127, 123, 0.28);
-  stroke-width: 2;
+.demo__map .leaflet-tile-pane {
+  filter: grayscale(1) saturate(0) brightness(1.06) contrast(0.92);
 }
 
-.demo__map-district--inner {
-  fill: rgba(230, 228, 223, 0.85);
+.demo__map .leaflet-control-zoom {
+  border: 1px solid rgba(50, 48, 48, 0.1);
+  box-shadow: var(--shadow-md);
 }
 
-.demo__map-water {
-  stroke: rgba(163, 167, 170, 0.55);
-  stroke-width: 16;
-  stroke-linecap: round;
+.demo__map .leaflet-control-zoom a {
+  color: var(--color-text);
 }
 
-.demo__map-road {
-  fill: none;
-  stroke-linecap: round;
-  stroke-linejoin: round;
+.demo__map .leaflet-control-attribution {
+  background: rgba(255, 255, 255, 0.84);
+  color: rgba(50, 48, 48, 0.56);
 }
 
-.demo__map-road--ring {
-  stroke: rgba(146, 142, 137, 0.42);
-  stroke-width: 10;
+.demo__map .leaflet-control-attribution a {
+  color: rgba(50, 48, 48, 0.72);
 }
 
-.demo__map-road--major {
-  stroke: rgba(161, 157, 151, 0.72);
-  stroke-width: 12;
+.demo__map-marker-wrap {
+  background: transparent;
+  border: none;
 }
 
-.demo__map-road--minor {
-  stroke: rgba(181, 177, 171, 0.9);
-  stroke-width: 7;
-}
-
-.demo__map-area-label {
-  fill: rgba(50, 48, 48, 0.36);
-  font-family: var(--font-mono);
-  font-size: 12px;
-  letter-spacing: 0.18em;
-}
-
-.demo__map-pin {
-  position: absolute;
+.demo__map-marker {
+  position: relative;
+  display: block;
   width: 16px;
   height: 16px;
-  appearance: none;
   border-radius: 50%;
-  padding: 0;
-  transform: translate(-50%, -50%);
   border: 2px solid var(--color-white);
-  cursor: pointer;
   box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.38);
   transition: transform var(--transition-fast), box-shadow var(--transition-fast), filter var(--transition-fast);
-  z-index: 3;
 }
 
-.demo__map-pin:hover,
-.demo__map-pin:focus-visible,
-.demo__map-pin.is-active {
-  transform: translate(-50%, -50%) scale(1.15);
-  box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.44);
-}
-
-.demo__map-pin:focus-visible {
-  outline: none;
-}
-
-.demo__map-pin::after {
+.demo__map-marker::after {
   content: '';
   position: absolute;
   inset: -6px;
@@ -516,35 +482,38 @@
   opacity: 0.3;
 }
 
-.demo__map-pin--ok { background-color: #4a7c59; color: #4a7c59; }
-.demo__map-pin--warn { background-color: #b8860b; color: #b8860b; }
-.demo__map-pin--alert { background-color: var(--color-accent); color: var(--color-accent); }
-
-.demo__map-tooltip {
-  position: absolute;
-  z-index: 4;
-  padding: 0.45rem 0.65rem;
-  border-radius: var(--radius-sm);
-  background-color: rgba(17, 17, 17, 0.82);
-  color: var(--color-white);
-  font-size: 0.75rem;
-  line-height: 1.4;
-  pointer-events: none;
-  opacity: 0;
-  transform: translate(-50%, -10px);
-  transition: opacity var(--transition-fast), transform var(--transition-fast);
-  white-space: nowrap;
+.demo__map-marker.is-active {
+  transform: scale(1.15);
+  box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.44);
 }
 
-.demo__map-tooltip.is-visible {
-  opacity: 1;
-  transform: translate(-50%, -16px);
+.demo__map-marker--ok { background-color: #4a7c59; color: #4a7c59; }
+.demo__map-marker--warn { background-color: #b8860b; color: #b8860b; }
+.demo__map-marker--alert { background-color: var(--color-accent); color: var(--color-accent); }
+
+.demo__map-popup .leaflet-popup-content-wrapper {
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-md);
+}
+
+.demo__map-popup .leaflet-popup-content {
+  margin: 0;
+  padding: 0.65rem 0.75rem;
+  font-size: 0.75rem;
+  line-height: 1.5;
+}
+
+.demo__map-popup strong {
+  display: block;
+  margin-bottom: 0.15rem;
+  font-size: 0.8125rem;
 }
 
 .demo__map-label {
   position: absolute;
   bottom: var(--space-sm);
   left: var(--space-sm);
+  z-index: 500;
   font-family: var(--font-mono);
   font-size: 0.625rem;
   text-transform: uppercase;

@@ -1,5 +1,5 @@
 /* ============================================
-   ZARYA Main — Entry point, global utilities
+   ZARYA Main - Entry point, global utilities
    ============================================ */
 
 (function () {
@@ -13,11 +13,10 @@
 
 (function () {
   var demoMap = document.getElementById('demoMap');
-  if (!demoMap) return;
+  var mapCanvas = document.getElementById('demoLeafletMap');
+  if (!demoMap || !mapCanvas || typeof L === 'undefined') return;
 
-  var pins = Array.prototype.slice.call(demoMap.querySelectorAll('.demo__map-pin'));
   var sidebarItems = Array.prototype.slice.call(document.querySelectorAll('.demo__sidebar-item[data-site-id]'));
-  var tooltip = document.getElementById('demoMapTooltip');
   var statusValue = document.getElementById('demoStatusValue');
   var confidenceValue = document.getElementById('demoConfidenceValue');
   var updatedValue = document.getElementById('demoUpdatedValue');
@@ -32,41 +31,137 @@
     'demo__panel-status--alert'
   ];
 
-  function findPin(siteId) {
-    var match = null;
+  var sites = [
+    {
+      id: 'site-001',
+      title: 'Площадка #001',
+      zone: 'Центр',
+      status: 'Норма',
+      statusClass: 'ok',
+      confidence: '98%',
+      updated: '12:14',
+      camera: 'Камера A-12',
+      coords: [44.6079, 40.1052]
+    },
+    {
+      id: 'site-002',
+      title: 'Площадка #002',
+      zone: 'Восточный сектор',
+      status: 'Норма',
+      statusClass: 'ok',
+      confidence: '96%',
+      updated: '12:09',
+      camera: 'Камера B-07',
+      coords: [44.6048, 40.1254]
+    },
+    {
+      id: 'site-003',
+      title: 'Площадка #003',
+      zone: 'Юго-запад',
+      status: 'Проверка',
+      statusClass: 'warn',
+      confidence: '82%',
+      updated: '11:58',
+      camera: 'Камера C-03',
+      coords: [44.5942, 40.0918]
+    },
+    {
+      id: 'site-004',
+      title: 'Площадка #004',
+      zone: 'Черемушки',
+      status: 'Сигнал',
+      statusClass: 'alert',
+      confidence: '91%',
+      updated: '12:11',
+      camera: 'Камера D-19',
+      coords: [44.6167, 40.1294]
+    },
+    {
+      id: 'site-005',
+      title: 'Площадка #005',
+      zone: 'Северный контур',
+      status: 'Норма',
+      statusClass: 'ok',
+      confidence: '94%',
+      updated: '12:06',
+      camera: 'Камера E-05',
+      coords: [44.6269, 40.1097]
+    },
+    {
+      id: 'site-006',
+      title: 'Площадка #006',
+      zone: 'Западный сектор',
+      status: 'Норма',
+      statusClass: 'ok',
+      confidence: '97%',
+      updated: '12:02',
+      camera: 'Камера F-02',
+      coords: [44.6062, 40.0806]
+    }
+  ];
 
-    pins.forEach(function (pin) {
-      if (pin.getAttribute('data-site-id') === siteId) {
-        match = pin;
-      }
+  var siteMap = {};
+  var markerMap = {};
+
+  var map = L.map(mapCanvas, {
+    zoomControl: false,
+    attributionControl: true
+  }).setView([44.6078, 40.1058], 12.7);
+
+  L.control.zoom({
+    position: 'topright'
+  }).addTo(map);
+
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+  }).addTo(map);
+
+  function getMarkerElement(marker) {
+    var markerNode = marker && marker.getElement();
+    return markerNode ? markerNode.querySelector('.demo__map-marker') : null;
+  }
+
+  function createMarker(site) {
+    var marker = L.marker(site.coords, {
+      icon: L.divIcon({
+        className: 'demo__map-marker-wrap',
+        html: '<span class="demo__map-marker demo__map-marker--' + site.statusClass + '"></span>',
+        iconSize: [16, 16],
+        iconAnchor: [8, 8],
+        popupAnchor: [0, -12]
+      })
     });
 
-    return match;
+    marker.bindPopup(
+      '<strong>' + site.title + '</strong>' + site.zone + ' // ' + site.status,
+      { className: 'demo__map-popup' }
+    );
+
+    marker.on('click', function () {
+      selectSite(site.id, true);
+    });
+
+    marker.addTo(map);
+    return marker;
   }
 
-  function setTooltip(pin) {
-    if (!tooltip || !pin) return;
-
-    tooltip.textContent = pin.getAttribute('data-title') + ' // ' + pin.getAttribute('data-zone');
-    tooltip.style.left = pin.offsetLeft + (pin.offsetWidth / 2) + 'px';
-    tooltip.style.top = pin.offsetTop + 'px';
-    tooltip.classList.add('is-visible');
-    tooltip.setAttribute('aria-hidden', 'false');
+  function setActiveMarker(siteId) {
+    Object.keys(markerMap).forEach(function (id) {
+      var markerElement = getMarkerElement(markerMap[id]);
+      if (markerElement) {
+        markerElement.classList.toggle('is-active', id === siteId);
+      }
+    });
   }
 
-  function hideTooltip() {
-    if (!tooltip) return;
-    tooltip.classList.remove('is-visible');
-    tooltip.setAttribute('aria-hidden', 'true');
-  }
+  function updatePanel(site) {
+    if (!site) return;
 
-  function updatePanel(pin) {
-    if (!pin) return;
-
-    var statusClass = 'demo__panel-status--' + pin.getAttribute('data-status-class');
+    var statusClass = 'demo__panel-status--' + site.statusClass;
 
     if (statusValue) {
-      statusValue.textContent = pin.getAttribute('data-status');
+      statusValue.textContent = site.status;
       statusClasses.forEach(function (className) {
         statusValue.classList.remove(className);
       });
@@ -74,70 +169,71 @@
     }
 
     if (confidenceValue) {
-      confidenceValue.textContent = pin.getAttribute('data-confidence');
+      confidenceValue.textContent = site.confidence;
     }
 
     if (updatedValue) {
-      updatedValue.textContent = pin.getAttribute('data-updated');
+      updatedValue.textContent = site.updated;
     }
 
     if (selectedValue) {
-      var title = pin.getAttribute('data-title');
-      var markerIndex = title.indexOf('#');
-      selectedValue.textContent = markerIndex !== -1 ? title.slice(markerIndex) : title;
+      var markerIndex = site.title.indexOf('#');
+      selectedValue.textContent = markerIndex !== -1 ? site.title.slice(markerIndex) : site.title;
     }
 
     if (cameraTitle) {
-      cameraTitle.textContent = pin.getAttribute('data-camera');
+      cameraTitle.textContent = site.camera;
     }
 
     if (cameraLocation) {
-      cameraLocation.textContent = pin.getAttribute('data-zone') + ' // Майкоп';
+      cameraLocation.textContent = site.zone + ' // Майкоп';
     }
   }
 
-  function selectSite(siteId) {
-    var pin = findPin(siteId);
-    if (!pin) return;
+  function selectSite(siteId, shouldPan) {
+    var site = siteMap[siteId];
+    var marker = markerMap[siteId];
+    if (!site || !marker) return;
 
-    pins.forEach(function (item) {
-      item.classList.toggle('is-active', item === pin);
-    });
+    setActiveMarker(siteId);
 
     sidebarItems.forEach(function (item) {
       item.classList.toggle('demo__sidebar-item--active', item.getAttribute('data-site-id') === siteId);
     });
 
-    updatePanel(pin);
-    setTooltip(pin);
+    updatePanel(site);
+    marker.openPopup();
+
+    if (shouldPan) {
+      map.flyTo(site.coords, Math.max(map.getZoom(), 13), {
+        duration: 0.45
+      });
+    }
   }
 
   if (totalValue) {
-    totalValue.textContent = String(pins.length);
+    totalValue.textContent = String(sites.length);
   }
 
-  pins.forEach(function (pin) {
-    pin.addEventListener('click', function () {
-      selectSite(pin.getAttribute('data-site-id'));
-    });
-
-    pin.addEventListener('mouseenter', function () {
-      setTooltip(pin);
-    });
-
-    pin.addEventListener('focus', function () {
-      setTooltip(pin);
-    });
-
-    pin.addEventListener('mouseleave', hideTooltip);
-    pin.addEventListener('blur', hideTooltip);
+  sites.forEach(function (site) {
+    siteMap[site.id] = site;
+    markerMap[site.id] = createMarker(site);
   });
 
   sidebarItems.forEach(function (item) {
     item.addEventListener('click', function () {
-      selectSite(item.getAttribute('data-site-id'));
+      selectSite(item.getAttribute('data-site-id'), true);
     });
   });
 
-  selectSite('site-001');
+  map.whenReady(function () {
+    window.setTimeout(function () {
+      map.invalidateSize();
+      selectSite('site-001', false);
+    }, 0);
+  });
+
+  window.addEventListener('resize', function () {
+    map.invalidateSize();
+  });
 })();

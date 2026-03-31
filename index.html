@@ -12,6 +12,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
   <!-- Styles -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
   <link rel="stylesheet" href="css/variables.css">
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/components.css">
@@ -353,35 +354,10 @@
 
             <!-- Map -->
             <div class="demo__map" id="demoMap">
-              <div class="demo__map-grid"></div>
+              <div class="demo__map-canvas" id="demoLeafletMap" aria-label="Интерактивная карта Майкопа"></div>
               <div class="demo__map-overlay" aria-hidden="true">
-                <div class="demo__map-badge">Майкоп // City Map</div>
-                <svg class="demo__map-graphic" viewBox="0 0 640 420" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path class="demo__map-district" d="M95 78C146 50 223 39 298 45C376 52 452 80 503 132C545 175 561 226 547 272C531 324 492 357 433 374C371 392 287 393 219 375C157 357 105 325 74 279C44 235 35 185 48 145C60 112 74 93 95 78Z"/>
-                  <path class="demo__map-district demo__map-district--inner" d="M178 125C214 98 273 85 336 90C396 94 451 116 484 151C515 182 526 222 515 259C503 298 468 326 419 343C370 360 306 363 250 351C196 339 150 315 124 283C98 250 90 210 99 179C108 151 132 136 178 125Z"/>
-                  <path class="demo__map-water" d="M501 36C520 74 533 112 541 157C548 203 550 246 543 292C536 335 521 367 500 392"/>
-                  <path class="demo__map-road demo__map-road--ring" d="M136 206C165 156 225 122 300 118C385 113 453 145 492 208C520 252 512 301 472 334C433 366 370 380 297 375C228 370 172 343 144 302C121 269 117 236 136 206Z"/>
-                  <path class="demo__map-road demo__map-road--major" d="M106 161C169 171 228 175 286 173C346 170 409 159 476 137"/>
-                  <path class="demo__map-road demo__map-road--major" d="M125 279C192 260 253 248 318 243C383 238 443 245 497 266"/>
-                  <path class="demo__map-road demo__map-road--major" d="M248 86C248 141 250 193 255 247C260 294 270 334 287 374"/>
-                  <path class="demo__map-road demo__map-road--minor" d="M176 118C199 160 220 207 241 259C257 298 278 328 303 348"/>
-                  <path class="demo__map-road demo__map-road--minor" d="M359 103C349 145 341 188 337 232C333 279 334 321 345 356"/>
-                  <path class="demo__map-road demo__map-road--minor" d="M154 236C203 220 250 210 303 207C355 203 409 207 460 223"/>
-                  <path class="demo__map-road demo__map-road--minor" d="M210 312C256 291 304 278 355 273C402 269 442 272 476 286"/>
-                  <path class="demo__map-road demo__map-road--minor" d="M414 141C386 178 365 214 355 249C346 280 347 315 365 351"/>
-                  <text class="demo__map-area-label" x="235" y="150">ЦЕНТР</text>
-                  <text class="demo__map-area-label" x="150" y="252">ЗАПАД</text>
-                  <text class="demo__map-area-label" x="378" y="251">ЧЕРЕМУШКИ</text>
-                  <text class="demo__map-area-label" x="288" y="322">ВОСТОК</text>
-                </svg>
+                <div class="demo__map-badge">Майкоп // Live Map</div>
               </div>
-              <button class="demo__map-pin demo__map-pin--ok is-active" type="button" style="top: 31%; left: 43%;" data-site-id="site-001" data-title="Площадка #001" data-zone="Центр" data-status="Норма" data-status-class="ok" data-confidence="98%" data-updated="12:14" data-camera="Камера A-12" aria-label="Площадка #001, Центр"></button>
-              <button class="demo__map-pin demo__map-pin--ok" type="button" style="top: 43%; left: 56%;" data-site-id="site-002" data-title="Площадка #002" data-zone="Восточный сектор" data-status="Норма" data-status-class="ok" data-confidence="96%" data-updated="12:09" data-camera="Камера B-07" aria-label="Площадка #002, Восточный сектор"></button>
-              <button class="demo__map-pin demo__map-pin--warn" type="button" style="top: 58%; left: 38%;" data-site-id="site-003" data-title="Площадка #003" data-zone="Юго-запад" data-status="Проверка" data-status-class="warn" data-confidence="82%" data-updated="11:58" data-camera="Камера C-03" aria-label="Площадка #003, Юго-запад"></button>
-              <button class="demo__map-pin demo__map-pin--alert" type="button" style="top: 28%; left: 67%;" data-site-id="site-004" data-title="Площадка #004" data-zone="Черемушки" data-status="Сигнал" data-status-class="alert" data-confidence="91%" data-updated="12:11" data-camera="Камера D-19" aria-label="Площадка #004, Черемушки"></button>
-              <button class="demo__map-pin demo__map-pin--ok" type="button" style="top: 66%; left: 61%;" data-site-id="site-005" data-title="Площадка #005" data-zone="Северный контур" data-status="Норма" data-status-class="ok" data-confidence="94%" data-updated="12:06" data-camera="Камера E-05" aria-label="Площадка #005, Северный контур"></button>
-              <button class="demo__map-pin demo__map-pin--ok" type="button" style="top: 49%; left: 24%;" data-site-id="site-006" data-title="Площадка #006" data-zone="Западный сектор" data-status="Норма" data-status-class="ok" data-confidence="97%" data-updated="12:02" data-camera="Камера F-02" aria-label="Площадка #006, Западный сектор"></button>
-              <div class="demo__map-tooltip" id="demoMapTooltip" aria-hidden="true"></div>
               <span class="demo__map-label">Майкоп // Городской мониторинг</span>
             </div>
 
@@ -600,6 +576,7 @@
   <!-- Scripts -->
   <script src="js/navigation.js"></script>
   <script src="js/animations.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script src="js/main.js"></script>
 </body>
 </html>
