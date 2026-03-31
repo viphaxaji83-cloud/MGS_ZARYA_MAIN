@@ -205,6 +205,9 @@
 }
 
 .solution__card {
+  display: grid;
+  grid-template-rows: auto minmax(4.75rem, auto) 1fr;
+  align-content: start;
   text-align: center;
   padding: var(--space-lg) var(--space-md);
 }
@@ -214,6 +217,13 @@
   width: 64px;
   height: 64px;
   font-size: var(--text-2xl);
+}
+
+.solution__card .card__title {
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
 }
 
 /* 04. How It Works */
