@@ -84,6 +84,8 @@
   --color-dark: #111111;
   --color-muted: #e8e6e1;
   --color-white: #ffffff;
+  --color-icon-light-surface: #6e1d1f;
+  --color-icon-dark-surface: #dfd1bc;
 
   /* Typography */
   --font-heading: 'Gros Ventre', 'Arial Black', 'Impact', sans-serif;

@@ -218,6 +218,12 @@
     right: auto;
     width: 2px;
     height: auto;
+    transform: scaleY(0);
+    transform-origin: top center;
+  }
+
+  .roadmap__timeline.visible::before {
+    transform: scaleY(1);
   }
 
   .roadmap__phase {

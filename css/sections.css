@@ -700,7 +700,7 @@
   justify-content: center;
   font-size: var(--text-3xl);
   margin: 0 auto var(--space-sm);
-  color: var(--color-accent);
+  color: var(--color-icon-dark-surface);
 }
 
 .impact__title {
@@ -725,6 +725,11 @@
   position: relative;
 }
 
+.roadmap__timeline.fade-in {
+  opacity: 1;
+  transform: none;
+}
+
 .roadmap__timeline::before {
   content: '';
   position: absolute;
@@ -732,7 +737,16 @@
   left: 0;
   right: 0;
   height: 2px;
-  background-color: var(--color-muted);
+  background-color: rgba(136, 36, 38, 0.38);
+  opacity: 0;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.75s ease-out, opacity 0.45s ease-out;
+}
+
+.roadmap__timeline.visible::before {
+  opacity: 1;
+  transform: scaleX(1);
 }
 
 .roadmap__phase {

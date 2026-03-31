@@ -151,8 +151,9 @@
 }
 
 .section--dark .card__icon {
-  border-color: var(--color-accent);
-  color: var(--color-accent);
+  border-color: rgba(223, 209, 188, 0.36);
+  background-color: rgba(223, 209, 188, 0.08);
+  color: var(--color-icon-dark-surface);
 }
 
 .card__icon {
@@ -161,10 +162,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border: var(--border-accent);
+  border: 1px solid rgba(110, 29, 31, 0.22);
   border-radius: var(--radius);
   margin-bottom: var(--space-sm);
-  color: var(--color-accent);
+  background-color: rgba(110, 29, 31, 0.04);
+  color: var(--color-icon-light-surface);
   font-size: var(--text-xl);
 }
 
