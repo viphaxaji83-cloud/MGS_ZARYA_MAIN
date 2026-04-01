@@ -24,6 +24,9 @@
   var selectedValue = document.getElementById('demoSelectedValue');
   var cameraTitle = document.getElementById('demoCameraTitle');
   var cameraLocation = document.getElementById('demoCameraLocation');
+  var summaryOkBar = document.querySelector('.demo__sidebar-summary .demo__panel-bar-fill--green');
+  var summaryWarnBar = document.querySelector('.demo__sidebar-summary .demo__panel-bar-fill--yellow');
+  var summaryAlertBar = document.querySelector('.demo__sidebar-summary .demo__panel-bar-fill--red');
 
   var statusClasses = [
     'demo__panel-status--ok',
@@ -97,6 +100,50 @@
       updated: '12:02',
       camera: 'Камера F-02',
       coords: [44.6062, 40.0806]
+    },
+    {
+      id: 'site-007',
+      title: 'Площадка #007',
+      zone: 'Северо-запад',
+      status: 'Норма',
+      statusClass: 'ok',
+      confidence: '95%',
+      updated: '12:12',
+      camera: 'Камера G-08',
+      coords: [44.6208, 40.0942]
+    },
+    {
+      id: 'site-008',
+      title: 'Площадка #008',
+      zone: 'Восточный контур',
+      status: 'Норма',
+      statusClass: 'ok',
+      confidence: '93%',
+      updated: '12:04',
+      camera: 'Камера H-14',
+      coords: [44.6109, 40.1189]
+    },
+    {
+      id: 'site-009',
+      title: 'Площадка #009',
+      zone: 'Южный центр',
+      status: 'Проверка',
+      statusClass: 'warn',
+      confidence: '79%',
+      updated: '11:55',
+      camera: 'Камера J-03',
+      coords: [44.5986, 40.1014]
+    },
+    {
+      id: 'site-010',
+      title: 'Площадка #010',
+      zone: 'Юго-восток',
+      status: 'Сигнал',
+      statusClass: 'alert',
+      confidence: '88%',
+      updated: '12:08',
+      camera: 'Камера K-21',
+      coords: [44.6009, 40.1218]
     }
   ];
 
@@ -109,7 +156,7 @@
   }).setView([44.6078, 40.1058], 12.7);
 
   L.control.zoom({
-    position: 'topright'
+    position: 'bottomleft'
   }).addTo(map);
 
   L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -213,9 +260,38 @@
     }
   }
 
+  function updateSummaryBars() {
+    var total = sites.length || 1;
+    var counts = {
+      ok: 0,
+      warn: 0,
+      alert: 0
+    };
+
+    sites.forEach(function (site) {
+      if (counts[site.statusClass] !== undefined) {
+        counts[site.statusClass] += 1;
+      }
+    });
+
+    if (summaryOkBar) {
+      summaryOkBar.style.width = ((counts.ok / total) * 100).toFixed(1) + '%';
+    }
+
+    if (summaryWarnBar) {
+      summaryWarnBar.style.width = ((counts.warn / total) * 100).toFixed(1) + '%';
+    }
+
+    if (summaryAlertBar) {
+      summaryAlertBar.style.width = ((counts.alert / total) * 100).toFixed(1) + '%';
+    }
+  }
+
   if (totalValue) {
     totalValue.textContent = String(sites.length);
   }
+
+  updateSummaryBars();
 
   sites.forEach(function (site) {
     siteMap[site.id] = site;

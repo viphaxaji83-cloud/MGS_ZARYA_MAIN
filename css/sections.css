@@ -268,8 +268,9 @@
 
 .demo__body {
   display: grid;
-  grid-template-columns: 240px 1fr 280px;
-  min-height: 420px;
+  grid-template-columns: 240px 1fr;
+  height: 420px;
+  position: relative;
 }
 
 .demo__sidebar {
@@ -278,7 +279,22 @@
   padding: var(--space-sm);
   display: flex;
   flex-direction: column;
+  gap: var(--space-sm);
+  min-height: 0;
+}
+
+.demo__sidebar-list {
+  display: flex;
+  flex-direction: column;
   gap: 0.5rem;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding-right: 0.25rem;
+}
+
+.demo__sidebar-summary {
+  margin-top: var(--space-xs);
 }
 
 .demo__sidebar-item {
@@ -329,6 +345,7 @@
 }
 
 .demo__map {
+  grid-column: 2;
   position: relative;
   background: linear-gradient(180deg, #d8d6d1 0%, #e7e4df 100%);
   overflow: hidden;
@@ -456,18 +473,24 @@
 }
 
 .demo__panel {
-  border-left: var(--border);
-  padding: var(--space-sm);
+  position: absolute;
+  top: var(--space-sm);
+  right: var(--space-sm);
+  z-index: 700;
+  width: 248px;
+  padding: 0;
+  border-left: none;
   display: flex;
   flex-direction: column;
   gap: var(--space-sm);
 }
 
 .demo__panel-card {
-  background-color: var(--color-bg);
+  background-color: rgba(245, 243, 239, 0.94);
   border: var(--border);
   border-radius: var(--radius);
   padding: var(--space-sm);
+  box-shadow: 0 12px 28px rgba(17, 17, 17, 0.12);
 }
 
 .demo__panel-title {

@@ -302,61 +302,51 @@
           <div class="demo__body">
             <!-- Sidebar -->
             <div class="demo__sidebar">
-              <span class="sys-label" style="padding: 0.25rem 0.75rem;">Объекты</span>
-              <button class="demo__sidebar-item demo__sidebar-item--active" type="button" data-site-id="site-001">
-                <div class="demo__sidebar-dot demo__sidebar-dot--green"></div>
-                <span>Площадка #001</span>
-              </button>
-              <button class="demo__sidebar-item" type="button" data-site-id="site-002">
-                <div class="demo__sidebar-dot demo__sidebar-dot--green"></div>
-                <span>Площадка #002</span>
-              </button>
-              <button class="demo__sidebar-item" type="button" data-site-id="site-003">
-                <div class="demo__sidebar-dot demo__sidebar-dot--yellow"></div>
-                <span>Площадка #003</span>
-              </button>
-              <button class="demo__sidebar-item" type="button" data-site-id="site-004">
-                <div class="demo__sidebar-dot demo__sidebar-dot--red"></div>
-                <span>Площадка #004</span>
-              </button>
-              <button class="demo__sidebar-item" type="button" data-site-id="site-005">
-                <div class="demo__sidebar-dot demo__sidebar-dot--green"></div>
-                <span>Площадка #005</span>
-              </button>
-              <button class="demo__sidebar-item" type="button" data-site-id="site-006">
-                <div class="demo__sidebar-dot demo__sidebar-dot--green"></div>
-                <span>Площадка #006</span>
-              </button>
-            </div>
-
-            <!-- Map -->
-            <div class="demo__map" id="demoMap">
-              <div class="demo__map-canvas" id="demoLeafletMap" aria-label="Интерактивная карта Майкопа"></div>
-              <div class="demo__map-overlay" aria-hidden="true">
-                <div class="demo__map-badge">Майкоп // Live Map</div>
-              </div>
-              <span class="demo__map-label">Майкоп // Городской мониторинг</span>
-            </div>
-
-            <!-- Panel -->
-            <div class="demo__panel">
-              <div class="demo__panel-card">
-                <div class="demo__panel-title">AI Detection</div>
-                <div class="demo__panel-row">
-                  <span>Статус</span>
-                  <span class="demo__panel-value demo__panel-status demo__panel-status--ok" id="demoStatusValue">Норма</span>
-                </div>
-                <div class="demo__panel-row">
-                  <span>Уверенность</span>
-                  <span class="demo__panel-value" id="demoConfidenceValue">98%</span>
-                </div>
-                <div class="demo__panel-row">
-                  <span>Обновлено</span>
-                  <span class="demo__panel-value" id="demoUpdatedValue">12:14</span>
-                </div>
+              <div class="demo__sidebar-list">
+                <span class="sys-label" style="padding: 0.25rem 0.75rem;">Объекты</span>
+                <button class="demo__sidebar-item demo__sidebar-item--active" type="button" data-site-id="site-001">
+                  <div class="demo__sidebar-dot demo__sidebar-dot--green"></div>
+                  <span>Площадка #001</span>
+                </button>
+                <button class="demo__sidebar-item" type="button" data-site-id="site-002">
+                  <div class="demo__sidebar-dot demo__sidebar-dot--green"></div>
+                  <span>Площадка #002</span>
+                </button>
+                <button class="demo__sidebar-item" type="button" data-site-id="site-003">
+                  <div class="demo__sidebar-dot demo__sidebar-dot--yellow"></div>
+                  <span>Площадка #003</span>
+                </button>
+                <button class="demo__sidebar-item" type="button" data-site-id="site-004">
+                  <div class="demo__sidebar-dot demo__sidebar-dot--red"></div>
+                  <span>Площадка #004</span>
+                </button>
+                <button class="demo__sidebar-item" type="button" data-site-id="site-005">
+                  <div class="demo__sidebar-dot demo__sidebar-dot--green"></div>
+                  <span>Площадка #005</span>
+                </button>
+                <button class="demo__sidebar-item" type="button" data-site-id="site-006">
+                  <div class="demo__sidebar-dot demo__sidebar-dot--green"></div>
+                  <span>Площадка #006</span>
+                </button>
+                <button class="demo__sidebar-item" type="button" data-site-id="site-007">
+                  <div class="demo__sidebar-dot demo__sidebar-dot--green"></div>
+                  <span>Площадка #007</span>
+                </button>
+                <button class="demo__sidebar-item" type="button" data-site-id="site-008">
+                  <div class="demo__sidebar-dot demo__sidebar-dot--green"></div>
+                  <span>Площадка #008</span>
+                </button>
+                <button class="demo__sidebar-item" type="button" data-site-id="site-009">
+                  <div class="demo__sidebar-dot demo__sidebar-dot--yellow"></div>
+                  <span>Площадка #009</span>
+                </button>
+                <button class="demo__sidebar-item" type="button" data-site-id="site-010">
+                  <div class="demo__sidebar-dot demo__sidebar-dot--red"></div>
+                  <span>Площадка #010</span>
+                </button>
               </div>
 
-              <div class="demo__panel-card">
+              <div class="demo__panel-card demo__sidebar-summary">
                 <div class="demo__panel-title">Сводка</div>
                 <div class="demo__panel-row">
                   <span>Всего объектов</span>
@@ -374,6 +364,33 @@
                 </div>
                 <div class="demo__panel-bar">
                   <div class="demo__panel-bar-fill demo__panel-bar-fill--red" style="width: 16.7%;"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Map -->
+            <div class="demo__map" id="demoMap">
+              <div class="demo__map-canvas" id="demoLeafletMap" aria-label="Интерактивная карта Майкопа"></div>
+              <div class="demo__map-overlay" aria-hidden="true">
+                <div class="demo__map-badge">Майкоп // Live Map</div>
+              </div>
+            </div>
+
+            <!-- Panel -->
+            <div class="demo__panel">
+              <div class="demo__panel-card">
+                <div class="demo__panel-title">AI Detection</div>
+                <div class="demo__panel-row">
+                  <span>Статус</span>
+                  <span class="demo__panel-value demo__panel-status demo__panel-status--ok" id="demoStatusValue">Норма</span>
+                </div>
+                <div class="demo__panel-row">
+                  <span>Заполненность</span>
+                  <span class="demo__panel-value" id="demoConfidenceValue">98%</span>
+                </div>
+                <div class="demo__panel-row">
+                  <span>Обновлено</span>
+                  <span class="demo__panel-value" id="demoUpdatedValue">12:14</span>
                 </div>
               </div>
 
