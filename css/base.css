@@ -23,12 +23,27 @@ body {
   font-size: var(--text-base);
   line-height: var(--leading-normal);
   color: var(--color-text);
+  cursor: default;
   background-color: var(--color-bg);
   background-image:
     linear-gradient(var(--color-muted) 1px, transparent 1px),
     linear-gradient(90deg, var(--color-muted) 1px, transparent 1px);
   background-size: 60px 60px;
   background-attachment: fixed;
+}
+
+a,
+button,
+label,
+summary,
+[role="button"] {
+  cursor: pointer;
+}
+
+input,
+textarea,
+select {
+  cursor: text;
 }
 
 img,
