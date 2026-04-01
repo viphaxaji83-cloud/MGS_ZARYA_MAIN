@@ -202,7 +202,7 @@
   function getPopupContent(site) {
     return (
       '<strong>' + site.title + '</strong>' +
-      site.zone + ' // ' + site.status + ' // ' + site.confidence
+      site.status + ' // ' + site.confidence
     );
   }
 

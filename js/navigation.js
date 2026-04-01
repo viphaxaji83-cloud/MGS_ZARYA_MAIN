@@ -7,10 +7,6 @@
   const footer = document.getElementById('footer');
   const navToggle = document.getElementById('navToggle');
   const navList = document.getElementById('navList');
-  const hasHeroSection = Boolean(document.querySelector('.hero'));
-  const forceScrolledHeader = Boolean(
-    header && header.classList.contains('header--scrolled') && !hasHeroSection
-  );
   const scrollTopButton = document.createElement('button');
   const scrollDownButton = document.createElement('button');
 
@@ -32,7 +28,7 @@
     const scrollY = window.scrollY;
     const maxScroll = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
 
-    if (header && (forceScrolledHeader || scrollY > 60)) {
+    if (header && scrollY > 60) {
       header.classList.add('header--scrolled');
     } else if (header) {
       header.classList.remove('header--scrolled');
