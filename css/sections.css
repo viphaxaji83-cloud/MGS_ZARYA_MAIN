@@ -303,6 +303,10 @@
 }
 
 /* 05. Features */
+#features .section-subtitle {
+  max-width: 68ch;
+}
+
 .features__grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
