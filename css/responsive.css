@@ -310,9 +310,13 @@
 
   .scroll-top {
     right: 1rem;
-    bottom: 1rem;
+    bottom: 4.5rem;
     width: 3rem;
     height: 3rem;
+  }
+
+  .scroll-top--down {
+    bottom: 1rem;
   }
 
   .hero__mock-content {

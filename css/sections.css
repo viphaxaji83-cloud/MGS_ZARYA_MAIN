@@ -181,9 +181,11 @@
   margin: 0 auto var(--space-sm);
   font-family: var(--font-heading);
   font-size: var(--text-lg);
+  line-height: 1;
   color: #000;
   background-color: var(--color-bg);
   position: relative;
+  padding-top: 0.12em;
   z-index: 1;
 }
 

@@ -23,6 +23,11 @@
   text-align: center;
 }
 
+.btn__label {
+  display: block;
+  transform: translateY(2px);
+}
+
 .btn--primary {
   background-color: var(--color-accent);
   color: var(--color-bg);
@@ -71,7 +76,7 @@
 .scroll-top {
   position: fixed;
   right: 2rem;
-  bottom: 2rem;
+  bottom: 6.25rem;
   z-index: 120;
   width: 3.25rem;
   height: 3.25rem;
@@ -93,6 +98,10 @@
     visibility var(--transition),
     background-color var(--transition-fast),
     border-color var(--transition-fast);
+}
+
+.scroll-top--down {
+  bottom: 2rem;
 }
 
 .scroll-top:hover {

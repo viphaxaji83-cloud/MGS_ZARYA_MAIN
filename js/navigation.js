@@ -4,6 +4,7 @@
 
 (function () {
   const header = document.getElementById('header');
+  const footer = document.getElementById('footer');
   const navToggle = document.getElementById('navToggle');
   const navList = document.getElementById('navList');
   const hasHeroSection = Boolean(document.querySelector('.hero'));
@@ -11,17 +12,25 @@
     header && header.classList.contains('header--scrolled') && !hasHeroSection
   );
   const scrollTopButton = document.createElement('button');
+  const scrollDownButton = document.createElement('button');
 
   scrollTopButton.type = 'button';
   scrollTopButton.className = 'scroll-top';
   scrollTopButton.setAttribute('aria-label', 'Вернуться наверх');
   scrollTopButton.innerHTML = '<span class="scroll-top__icon" aria-hidden="true">↑</span>';
 
+  scrollDownButton.type = 'button';
+  scrollDownButton.className = 'scroll-top scroll-top--down';
+  scrollDownButton.setAttribute('aria-label', 'Прокрутить вниз');
+  scrollDownButton.innerHTML = '<span class="scroll-top__icon" aria-hidden="true">↓</span>';
+
   document.body.appendChild(scrollTopButton);
+  document.body.appendChild(scrollDownButton);
 
   // Header scroll effect
   function onScroll() {
     const scrollY = window.scrollY;
+    const maxScroll = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
 
     if (header && (forceScrolledHeader || scrollY > 60)) {
       header.classList.add('header--scrolled');
@@ -34,6 +43,12 @@
     } else {
       scrollTopButton.classList.remove('scroll-top--visible');
     }
+
+    if (scrollY > 360 && scrollY < maxScroll - 120) {
+      scrollDownButton.classList.add('scroll-top--visible');
+    } else {
+      scrollDownButton.classList.remove('scroll-top--visible');
+    }
   }
 
   window.addEventListener('scroll', onScroll, { passive: true });
@@ -42,6 +57,18 @@
   scrollTopButton.addEventListener('click', function () {
     window.scrollTo({
       top: 0,
+      behavior: 'smooth',
+    });
+  });
+
+  scrollDownButton.addEventListener('click', function () {
+    const headerHeight = header ? header.offsetHeight : 0;
+    const targetPosition = footer
+      ? Math.max(0, footer.getBoundingClientRect().top + window.scrollY - headerHeight)
+      : document.documentElement.scrollHeight - window.innerHeight;
+
+    window.scrollTo({
+      top: targetPosition,
       behavior: 'smooth',
     });
   });
