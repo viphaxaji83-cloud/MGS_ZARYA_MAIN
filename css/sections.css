@@ -162,6 +162,10 @@
 }
 
 /* 02. Problem */
+#problem .section-subtitle {
+  max-width: 88ch;
+}
+
 .problem__grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -197,6 +201,10 @@
 }
 
 /* 03. Solution */
+#solution .section-subtitle {
+  max-width: 84ch;
+}
+
 .solution__grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
