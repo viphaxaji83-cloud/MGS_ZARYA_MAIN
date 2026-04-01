@@ -240,6 +240,7 @@
 
   .roadmap__phase-title {
     font-size: var(--text-xl);
+    min-height: auto;
   }
 
   /* CTA */

@@ -804,6 +804,7 @@
 .roadmap__phase-title {
   font-family: var(--font-heading);
   font-size: var(--text-xl);
+  min-height: 2.4em;
   text-transform: uppercase;
   margin-bottom: var(--space-xs);
 }
