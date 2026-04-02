@@ -28,12 +28,6 @@
   transform: translateY(2px);
 }
 
-.btn:disabled {
-  opacity: 0.72;
-  cursor: default;
-  pointer-events: none;
-}
-
 .btn--primary {
   background-color: var(--color-accent);
   color: var(--color-bg);
