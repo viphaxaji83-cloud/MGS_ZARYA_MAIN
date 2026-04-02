@@ -358,6 +358,32 @@
   inset: 0;
 }
 
+.demo__map [class*="ground-pane"] {
+  filter: grayscale(1) saturate(0) brightness(1.06) contrast(0.92);
+}
+
+.demo__map-status {
+  position: absolute;
+  inset: var(--space-sm);
+  z-index: 550;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-md);
+  border: 1px solid rgba(50, 48, 48, 0.08);
+  border-radius: var(--radius);
+  background-color: rgba(245, 243, 239, 0.9);
+  box-shadow: var(--shadow-md);
+  color: rgba(50, 48, 48, 0.76);
+  font-size: var(--text-sm);
+  line-height: 1.5;
+  text-align: center;
+}
+
+.demo__map-status[hidden] {
+  display: none;
+}
+
 .demo__map-overlay {
   position: absolute;
   inset: 0;
@@ -381,36 +407,11 @@
   color: rgba(50, 48, 48, 0.72);
 }
 
-.demo__map .leaflet-container {
-  width: 100%;
-  height: 100%;
-  background: transparent;
-  font-family: var(--font-body);
-}
-
-.demo__map .leaflet-tile-pane {
-  filter: grayscale(1) saturate(0) brightness(1.06) contrast(0.92);
-}
-
-.demo__map .leaflet-control-zoom {
-  border: 1px solid rgba(50, 48, 48, 0.1);
-  box-shadow: var(--shadow-md);
-}
-
-.demo__map .leaflet-control-zoom a {
-  color: var(--color-text);
-}
-
-.demo__map .leaflet-control-attribution {
-  background: rgba(255, 255, 255, 0.84);
-  color: rgba(50, 48, 48, 0.56);
-}
-
-.demo__map .leaflet-control-attribution a {
-  color: rgba(50, 48, 48, 0.72);
-}
-
 .demo__map-marker-wrap {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  transform: translate(-50%, -50%);
   background: transparent;
   border: none;
 }
@@ -444,22 +445,14 @@
 .demo__map-marker--warn { background-color: #b8860b; color: #b8860b; }
 .demo__map-marker--alert { background-color: var(--color-accent); color: var(--color-accent); }
 
-.demo__map-popup .leaflet-popup-content-wrapper {
-  border-radius: var(--radius-sm);
-  box-shadow: var(--shadow-md);
-}
-
-.demo__map-popup .leaflet-popup-content {
-  margin: 0;
-  padding: 0.65rem 0.75rem;
+.demo__map [class*="balloon__content"] {
+  font-family: var(--font-body);
   font-size: 0.75rem;
   line-height: 1.5;
 }
 
-.demo__map-popup strong {
-  display: block;
-  margin-bottom: 0.15rem;
-  font-size: 0.8125rem;
+.demo__map [class*="balloon__tail"]::after {
+  box-shadow: none;
 }
 
 .demo__map-label {

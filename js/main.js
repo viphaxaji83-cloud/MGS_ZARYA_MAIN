@@ -13,8 +13,9 @@
 
 (function () {
   var demoMap = document.getElementById('demoMap');
-  var mapCanvas = document.getElementById('demoLeafletMap');
-  if (!demoMap || !mapCanvas || typeof L === 'undefined') return;
+  var mapCanvas = document.getElementById('demoYandexMap');
+  var mapStatus = document.getElementById('demoMapStatus');
+  if (!demoMap || !mapCanvas) return;
 
   var sidebarItems = Array.prototype.slice.call(document.querySelectorAll('.demo__sidebar-item[data-site-id]'));
   var statusValue = document.getElementById('demoStatusValue');
@@ -26,17 +27,16 @@
   var summaryWarnBar = document.querySelector('.demo__sidebar-summary .demo__panel-bar-fill--yellow');
   var summaryAlertBar = document.querySelector('.demo__sidebar-summary .demo__panel-bar-fill--red');
   var activeSiteId = null;
+  var yandexMap = null;
+  var markerLayout = null;
+  var ymapsApi = null;
+  var mapCenter = [44.6078, 40.1058];
+  var mapZoom = 12.7;
 
   var statusClasses = [
     'demo__panel-status--ok',
     'demo__panel-status--warn',
     'demo__panel-status--alert'
-  ];
-
-  var markerClasses = [
-    'demo__map-marker--ok',
-    'demo__map-marker--warn',
-    'demo__map-marker--alert'
   ];
 
   var sidebarDotClasses = [
@@ -143,22 +143,6 @@
   var siteMap = {};
   var markerMap = {};
 
-  var map = L.map(mapCanvas, {
-    zoomControl: false,
-    attributionControl: true
-  }).setView([44.6078, 40.1058], 12.7);
-
-  L.control.zoom({
-    position: 'bottomleft'
-  }).addTo(map);
-
-  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-  }).addTo(map);
-
-  map.attributionControl.setPrefix(false);
-
   function clamp(value, min, max) {
     return Math.min(max, Math.max(min, value));
   }
@@ -199,11 +183,66 @@
     };
   }
 
-  function getPopupContent(site) {
-    return (
-      '<strong>' + site.title + '</strong>' +
-      site.status + ' // ' + site.confidence
-    );
+  function showMapStatus(message) {
+    if (!mapStatus) return;
+    mapStatus.textContent = message;
+    mapStatus.hidden = false;
+  }
+
+  function hideMapStatus() {
+    if (!mapStatus) return;
+    mapStatus.hidden = true;
+    mapStatus.textContent = '';
+  }
+
+  function getMapsApiKey() {
+    var metaKey = '';
+    var metaTag = document.querySelector('meta[name="yandex-maps-api-key"]');
+    if (metaTag) {
+      metaKey = metaTag.getAttribute('content') || '';
+    }
+
+    return metaKey.trim();
+  }
+
+  function loadYandexMapsApi(apiKey) {
+    if (window.ymaps && window.ymaps.Map) {
+      return new Promise(function (resolve) {
+        window.ymaps.ready(function () {
+          resolve(window.ymaps);
+        });
+      });
+    }
+
+    if (window.__zaryaYmapsLoader) {
+      return window.__zaryaYmapsLoader;
+    }
+
+    window.__zaryaYmapsLoader = new Promise(function (resolve, reject) {
+      var script = document.createElement('script');
+
+      script.src = 'https://api-maps.yandex.ru/2.1/?apikey=' + encodeURIComponent(apiKey) + '&lang=ru_RU';
+      script.async = true;
+
+      script.onload = function () {
+        if (!window.ymaps || !window.ymaps.ready) {
+          reject(new Error('Yandex Maps API is unavailable'));
+          return;
+        }
+
+        window.ymaps.ready(function () {
+          resolve(window.ymaps);
+        });
+      };
+
+      script.onerror = function () {
+        reject(new Error('Failed to load Yandex Maps API'));
+      };
+
+      document.head.appendChild(script);
+    });
+
+    return window.__zaryaYmapsLoader;
   }
 
   function syncSiteState(site, updatedAt) {
@@ -218,32 +257,47 @@
     site.updated = formatTime(timestamp);
   }
 
-  function getMarkerElement(marker) {
-    var markerNode = marker && marker.getElement();
-    return markerNode ? markerNode.querySelector('.demo__map-marker') : null;
+  function updateMarkerProperties(marker, site, isActive) {
+    if (!marker) return;
+    marker.properties.set('balloonContentHeader', site.title);
+    marker.properties.set('balloonContentBody', site.status + ' // ' + site.confidence);
+    marker.properties.set('statusClass', site.statusClass);
+    marker.properties.set('isActive', Boolean(isActive));
   }
 
   function createMarker(site) {
-    var marker = L.marker(site.coords, {
-      icon: L.divIcon({
-        className: 'demo__map-marker-wrap',
-        html: '<span class="demo__map-marker demo__map-marker--' + site.statusClass + '"></span>',
-        iconSize: [16, 16],
-        iconAnchor: [8, 8],
-        popupAnchor: [0, -12]
-      })
-    });
+    var marker = null;
 
-    marker.bindPopup(
-      getPopupContent(site),
-      { className: 'demo__map-popup' }
+    if (!ymapsApi || !yandexMap || !markerLayout) return null;
+
+    marker = new ymapsApi.Placemark(
+      site.coords,
+      {
+        hintContent: site.title,
+        balloonContentHeader: site.title,
+        balloonContentBody: site.status + ' // ' + site.confidence,
+        statusClass: site.statusClass,
+        isActive: false
+      },
+      {
+        iconLayout: markerLayout,
+        iconShape: {
+          type: 'Circle',
+          coordinates: [0, 0],
+          radius: 14
+        },
+        hideIconOnBalloonOpen: false,
+        openEmptyBalloon: true,
+        openEmptyHint: false,
+        cursor: 'pointer'
+      }
     );
 
-    marker.on('click', function () {
+    marker.events.add('click', function () {
       selectSite(site.id, true);
     });
 
-    marker.addTo(map);
+    yandexMap.geoObjects.add(marker);
     return marker;
   }
 
@@ -261,18 +315,7 @@
 
   function updateMarkerState(site) {
     var marker = markerMap[site.id];
-    var markerElement = getMarkerElement(marker);
-
-    if (markerElement) {
-      markerClasses.forEach(function (className) {
-        markerElement.classList.remove(className);
-      });
-      markerElement.classList.add('demo__map-marker--' + site.statusClass);
-    }
-
-    if (marker) {
-      marker.setPopupContent(getPopupContent(site));
-    }
+    updateMarkerProperties(marker, site, activeSiteId === site.id);
   }
 
   function refreshSiteVisuals(site) {
@@ -282,9 +325,9 @@
 
   function setActiveMarker(siteId) {
     Object.keys(markerMap).forEach(function (id) {
-      var markerElement = getMarkerElement(markerMap[id]);
-      if (markerElement) {
-        markerElement.classList.toggle('is-active', id === siteId);
+      var marker = markerMap[id];
+      if (marker) {
+        marker.properties.set('isActive', id === siteId);
       }
     });
   }
@@ -319,7 +362,7 @@
   function selectSite(siteId, shouldPan) {
     var site = siteMap[siteId];
     var marker = markerMap[siteId];
-    if (!site || !marker) return;
+    if (!site) return;
 
     activeSiteId = siteId;
     setActiveMarker(siteId);
@@ -329,11 +372,18 @@
     });
 
     updatePanel(site);
-    marker.openPopup();
+    updateMarkerProperties(marker, site, true);
 
-    if (shouldPan) {
-      map.flyTo(site.coords, Math.max(map.getZoom(), 13), {
-        duration: 0.45
+    if (marker && marker.balloon) {
+      marker.balloon.open();
+    }
+
+    if (shouldPan && yandexMap) {
+      mapCenter = site.coords.slice();
+      mapZoom = Math.max(mapZoom, 13);
+
+      yandexMap.setCenter(mapCenter, mapZoom, {
+        duration: 300
       });
     }
   }
@@ -405,11 +455,6 @@
 
   updateSummaryBars();
 
-  sites.forEach(function (site) {
-    siteMap[site.id] = site;
-    markerMap[site.id] = createMarker(site);
-  });
-
   sidebarItems.forEach(function (item) {
     item.addEventListener('click', function () {
       selectSite(item.getAttribute('data-site-id'), true);
@@ -428,14 +473,66 @@
     }
   }, demoRefreshMs);
 
-  map.whenReady(function () {
-    window.setTimeout(function () {
-      map.invalidateSize();
-      selectSite('site-001', false);
-    }, 0);
+  sites.forEach(function (site) {
+    siteMap[site.id] = site;
   });
 
-  window.addEventListener('resize', function () {
-    map.invalidateSize();
-  });
+  selectSite('site-001', false);
+
+  if (window.location.protocol === 'file:') {
+    showMapStatus('Для загрузки Яндекс Карт откройте сайт через локальный HTTP-сервер и добавьте API-ключ.');
+    return;
+  }
+
+  (function initYandexMap() {
+    var apiKey = getMapsApiKey();
+
+    if (!apiKey) {
+      showMapStatus('Добавьте API-ключ Яндекс Карт в meta[name="yandex-maps-api-key"].');
+      return;
+    }
+
+    showMapStatus('Загружаем карту Яндекса...');
+
+    loadYandexMapsApi(apiKey)
+      .then(function (ymaps) {
+        ymapsApi = ymaps;
+        markerLayout = ymaps.templateLayoutFactory.createClass(
+          '<div class="demo__map-marker-wrap">' +
+            '<span class="demo__map-marker demo__map-marker--{{ properties.statusClass }}{% if properties.isActive %} is-active{% endif %}"></span>' +
+          '</div>'
+        );
+
+        yandexMap = new ymaps.Map(
+          mapCanvas,
+          {
+            center: mapCenter,
+            zoom: mapZoom,
+            controls: ['zoomControl']
+          },
+          {
+            suppressMapOpenBlock: true,
+            yandexMapAutoSwitch: false,
+            yandexMapDisablePoiInteractivity: true
+          }
+        );
+
+        yandexMap.options.set({
+          suppressMapOpenBlock: true,
+          yandexMapAutoSwitch: false,
+          yandexMapDisablePoiInteractivity: true
+        });
+
+        sites.forEach(function (site) {
+          markerMap[site.id] = createMarker(site);
+        });
+
+        hideMapStatus();
+        selectSite(activeSiteId || 'site-001', false);
+      })
+      .catch(function (error) {
+        console.error('Yandex Maps init failed:', error);
+        showMapStatus('Не удалось загрузить Яндекс Карты. Проверьте API-ключ, ограничения по Referer и подождите до 15 минут после активации.');
+      });
+  })();
 })();

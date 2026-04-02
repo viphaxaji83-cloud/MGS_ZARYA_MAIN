@@ -6,10 +6,10 @@
   <meta name="description" content="ЗАРЯ — AI-платформа мониторинга городской среды и контейнерных площадок">
   <title>ЗАРЯ — Система мониторинга городской среды</title>
   <link rel="icon" type="image/png" href="assets/logo/Icon_logo_light.png">
+  <meta name="yandex-maps-api-key" content="f89b86d6-9516-4c17-b659-9fb5cebe7b42">
 
   <!-- Fonts -->
   <!-- Styles -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
   <link rel="stylesheet" href="css/variables.css">
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/components.css">
@@ -357,7 +357,8 @@
 
             <!-- Map -->
             <div class="demo__map" id="demoMap">
-              <div class="demo__map-canvas" id="demoLeafletMap" aria-label="Интерактивная карта Майкопа"></div>
+              <div class="demo__map-canvas" id="demoYandexMap" aria-label="Интерактивная карта Майкопа"></div>
+              <div class="demo__map-status" id="demoMapStatus" hidden></div>
               <div class="demo__map-overlay" aria-hidden="true">
                 <div class="demo__map-badge">Майкоп // Live Map</div>
               </div>
@@ -531,7 +532,6 @@
   <!-- Scripts -->
   <script src="js/navigation.js"></script>
   <script src="js/animations.js"></script>
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script src="js/main.js"></script>
 </body>
 </html>
