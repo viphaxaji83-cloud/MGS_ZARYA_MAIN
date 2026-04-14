@@ -34,6 +34,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  min-height: 2.75rem;
+  gap: 1rem;
 }
 
 .header__logo {
@@ -92,8 +94,16 @@
 }
 
 .nav__cta {
+  display: inline-flex;
+  align-items: center;
+  align-self: center;
   padding: 0.5rem 1.25rem;
   font-size: var(--text-xs);
+  min-height: 2.5rem;
+}
+
+.nav__cta .btn__label {
+  transform: translateY(1px);
 }
 
 /* Mobile menu toggle */

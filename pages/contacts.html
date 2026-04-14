@@ -92,8 +92,32 @@
     }
 
     @media (max-width: 768px) {
+      .contact-form {
+        margin-top: var(--space-md);
+      }
+
+      .contact-form .btn {
+        width: 100%;
+        align-self: stretch !important;
+      }
+
       .contact-info {
+        margin-top: var(--space-md);
         grid-template-columns: 1fr;
+      }
+
+      .contact-info__item {
+        padding: 1.25rem;
+      }
+
+      .contact-info__value {
+        overflow-wrap: anywhere;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .contact-info {
+        grid-template-columns: minmax(0, 1fr);
       }
     }
   </style>
